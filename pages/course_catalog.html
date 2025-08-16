@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Catalog - SAFAL PARIKSHA</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <style>
+        /* 3D Animation Styles */
+        .floating-card {
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        
+        .floating-card:nth-child(2) {
+            animation-delay: -2s;
+        }
+        
+        .floating-card:nth-child(3) {
+            animation-delay: -4s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotateX(5deg);
+            }
+        }
+        
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) translateZ(20px);
+        }
+        
+        .flip-card {
+            perspective: 1000px;
+            height: 400px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+        }
+        
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .filter-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .filter-sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #2563EB, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .comparison-bar {
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .comparison-bar.show {
+            transform: translateY(0);
+        }
+        
+        .skeleton-card {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        .search-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        
+        .search-dropdown.show {
+            max-height: 300px;
+        }
+        
+        .skill-indicator {
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .skill-fill {
+            height: 100%;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .skill-beginner .skill-fill {
+            width: 33%;
+            background: #10b981;
+        }
+        
+        .skill-intermediate .skill-fill {
+            width: 66%;
+            background: #f59e0b;
+        }
+        
+        .skill-advanced .skill-fill {
+            width: 100%;
+            background: #ef4444;
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftypingplus2245back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-10 w-10" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M12 12h16v4H20v12h-4V16h-4v-4z" fill="white"/>
+                            <circle cx="30" cy="30" r="6" fill="#059669"/>
+                            <path d="M27 30l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold gradient-text">SAFAL PARIKSHA</h1>
+                        <p class="text-xs text-text-secondary">Excellence in Education</p>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-lg mx-8 relative">
+                    <div class="relative w-full">
+                        <input type="text" id="search-input" placeholder="Search courses..." class="form-input pl-10 pr-4 w-full" />
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <!-- Search Dropdown -->
+                        <div id="search-dropdown" class="search-dropdown absolute top-full left-0 right-0 bg-surface border border-border rounded-lg shadow-lg mt-1 z-10">
+                            <div class="p-2">
+                                <div class="text-sm text-text-secondary mb-2">Popular Searches</div>
+                                <div class="space-y-1">
+                                    <a href="javascript:void(0)" class="block px-3 py-2 text-sm hover:bg-primary-50 rounded">English Typing</a>
+                                    <a href="javascript:void(0)" class="block px-3 py-2 text-sm hover:bg-primary-50 rounded">SSC Preparation</a>
+                                    <a href="javascript:void(0)" class="block px-3 py-2 text-sm hover:bg-primary-50 rounded">Banking Exams</a>
+                                    <a href="javascript:void(0)" class="block px-3 py-2 text-sm hover:bg-primary-50 rounded">Hindi Typing</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="homepage.html" class="text-text-primary hover:text-primary px-3 py-2 rounded-md text-sm transition-colors">Home</a>
+                        <a href="course_catalog.html" class="text-primary font-medium px-3 py-2 rounded-md text-sm">Courses</a>
+                        <a href="faculty_profiles.html" class="text-text-primary hover:text-primary px-3 py-2 rounded-md text-sm transition-colors">Faculty</a>
+                        <a href="admission_process.html" class="text-text-primary hover:text-primary px-3 py-2 rounded-md text-sm transition-colors">Admissions</a>
+                        <a href="contact_inquiry.html" class="text-text-primary hover:text-primary px-3 py-2 rounded-md text-sm transition-colors">Contact</a>
+                        <a href="course_details.html" class="btn btn-primary text-sm">Enroll Now</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-text-primary hover:text-primary focus:outline-none focus:text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden fixed inset-y-0 left-0 w-64 bg-surface shadow-xl z-50">
+            <div class="flex items-center justify-between p-4 border-b border-border">
+                <h2 class="text-lg font-semibold text-text-primary">Menu</h2>
+                <button id="close-menu-btn" class="text-text-primary hover:text-primary">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="py-4">
+                <a href="homepage.html" class="block px-4 py-2 text-text-primary hover:text-primary hover:bg-primary-50 transition-colors">Home</a>
+                <a href="course_catalog.html" class="block px-4 py-2 text-primary font-medium">Courses</a>
+                <a href="faculty_profiles.html" class="block px-4 py-2 text-text-primary hover:text-primary hover:bg-primary-50 transition-colors">Faculty</a>
+                <a href="admission_process.html" class="block px-4 py-2 text-text-primary hover:text-primary hover:bg-primary-50 transition-colors">Admissions</a>
+                <a href="contact_inquiry.html" class="block px-4 py-2 text-text-primary hover:text-primary hover:bg-primary-50 transition-colors">Contact</a>
+                <div class="px-4 py-2">
+                    <a href="course_details.html" class="btn btn-primary w-full text-center">Enroll Now</a>
+                </div>
+            </div>
+            <!-- Mobile Search -->
+            <div class="px-4 py-2 border-t border-border">
+                <div class="relative">
+                    <input type="text" placeholder="Search courses..." class="form-input pl-10 pr-4 w-full" />
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-20 pb-8 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Course Catalog</h1>
+                <p class="text-xl text-white/90 max-w-2xl mx-auto">Discover our comprehensive range of typing and government exam preparation courses designed for your success</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky Filter Bar -->
+    <section class="sticky top-16 bg-surface shadow-md z-40 border-b border-border">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Category Chips -->
+                <div class="flex items-center space-x-2 overflow-x-auto">
+                    <button class="filter-chip active" data-category="all">All Courses</button>
+                    <button class="filter-chip" data-category="typing">Typing</button>
+                    <button class="filter-chip" data-category="ssc">SSC</button>
+                    <button class="filter-chip" data-category="banking">Banking</button>
+                    <button class="filter-chip" data-category="railway">Railway</button>
+                    <button class="filter-chip" data-category="upsc">UPSC</button>
+                    <button class="filter-chip" data-category="state">State Exams</button>
+                </div>
+
+                <!-- Filter & Sort Controls -->
+                <div class="flex items-center space-x-4">
+                    <!-- Mobile Filter Button -->
+                    <button id="mobile-filter-btn" class="md:hidden btn btn-outline">
+                        <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                        </svg>
+                        Filter
+                    </button>
+
+                    <!-- Sort Dropdown -->
+                    <div class="relative">
+                        <button id="sort-btn" class="btn btn-outline">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>
+                            </svg>
+                            Sort by
+                        </button>
+                        <div id="sort-dropdown" class="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-lg shadow-lg z-10 hidden">
+                            <div class="py-1">
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm hover:bg-primary-50" data-sort="popularity">Popularity</a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm hover:bg-primary-50" data-sort="price-low">Price: Low to High</a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm hover:bg-primary-50" data-sort="price-high">Price: High to Low</a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm hover:bg-primary-50" data-sort="duration">Duration</a>
+                                <a href="javascript:void(0)" class="block px-4 py-2 text-sm hover:bg-primary-50" data-sort="newest">Newest</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Count -->
+                    <span class="text-sm text-text-secondary hidden md:block">
+                        Showing <span id="results-count">12</span> courses
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex gap-8">
+                <!-- Desktop Filter Sidebar -->
+                <div class="hidden lg:block w-64 flex-shrink-0">
+                    <div class="sticky top-32">
+                        <div class="card p-6">
+                            <h3 class="text-lg font-semibold mb-4">Filters</h3>
+                            
+                            <!-- Exam Type Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-3">Exam Type</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="typing" />
+                                        <span class="ml-2 text-sm">Typing Courses</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="ssc" />
+                                        <span class="ml-2 text-sm">SSC Exams</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="banking" />
+                                        <span class="ml-2 text-sm">Banking Exams</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="railway" />
+                                        <span class="ml-2 text-sm">Railway Jobs</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="upsc" />
+                                        <span class="ml-2 text-sm">UPSC</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="state" />
+                                        <span class="ml-2 text-sm">State Exams</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Duration Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-3">Duration</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="1-3" />
+                                        <span class="ml-2 text-sm">1-3 Months</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="3-6" />
+                                        <span class="ml-2 text-sm">3-6 Months</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="6+" />
+                                        <span class="ml-2 text-sm">6+ Months</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Fee Range Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-3">Fee Range</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="0-5000" />
+                                        <span class="ml-2 text-sm">₹0 - ₹5,000</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="5000-10000" />
+                                        <span class="ml-2 text-sm">₹5,000 - ₹10,000</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="10000+" />
+                                        <span class="ml-2 text-sm">₹10,000+</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Skill Level Filter -->
+                            <div class="mb-6">
+                                <h4 class="font-medium mb-3">Skill Level</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="beginner" />
+                                        <span class="ml-2 text-sm">Beginner</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="intermediate" />
+                                        <span class="ml-2 text-sm">Intermediate</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="form-checkbox text-primary" value="advanced" />
+                                        <span class="ml-2 text-sm">Advanced</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Reset Filters -->
+                            <button class="btn btn-outline w-full">
+                                <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                </svg>
+                                Reset Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Filter Sidebar -->
+                <div id="mobile-filter-sidebar" class="filter-sidebar lg:hidden fixed inset-y-0 left-0 w-80 bg-surface shadow-xl z-50">
+                    <div class="flex items-center justify-between p-4 border-b border-border">
+                        <h2 class="text-lg font-semibold text-text-primary">Filters</h2>
+                        <button id="close-filter-btn" class="text-text-primary hover:text-primary">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-4 overflow-y-auto">
+                        <!-- Same filter content as desktop -->
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3">Exam Type</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="typing" />
+                                    <span class="ml-2 text-sm">Typing Courses</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="ssc" />
+                                    <span class="ml-2 text-sm">SSC Exams</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="banking" />
+                                    <span class="ml-2 text-sm">Banking Exams</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="railway" />
+                                    <span class="ml-2 text-sm">Railway Jobs</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="upsc" />
+                                    <span class="ml-2 text-sm">UPSC</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="state" />
+                                    <span class="ml-2 text-sm">State Exams</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3">Duration</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="1-3" />
+                                    <span class="ml-2 text-sm">1-3 Months</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="3-6" />
+                                    <span class="ml-2 text-sm">3-6 Months</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="6+" />
+                                    <span class="ml-2 text-sm">6+ Months</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3">Fee Range</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="0-5000" />
+                                    <span class="ml-2 text-sm">₹0 - ₹5,000</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="5000-10000" />
+                                    <span class="ml-2 text-sm">₹5,000 - ₹10,000</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="10000+" />
+                                    <span class="ml-2 text-sm">₹10,000+</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-3">Skill Level</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="beginner" />
+                                    <span class="ml-2 text-sm">Beginner</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="intermediate" />
+                                    <span class="ml-2 text-sm">Intermediate</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary" value="advanced" />
+                                    <span class="ml-2 text-sm">Advanced</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-outline w-full mb-4">Reset Filters</button>
+                        <button id="apply-filters-btn" class="btn btn-primary w-full">Apply Filters</button>
+                    </div>
+                </div>
+
+                <!-- Course Grid -->
+                <div class="flex-1">
+                    <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- Course Card 1 -->
+                        <div class="flip-card course-card" data-category="typing" data-duration="3" data-fee="5000" data-skill="beginner">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://images.pexels.com/photos/7092613/pexels-photo-7092613.jpeg?auto=compress&cs=tinysrgb&w=600" alt="English Typing Course" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium">Popular</span>
+                                            <span class="text-accent font-bold text-lg">₹ 600 Month</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">English Typing Course</h3>
+                                        <p class="text-text-secondary text-sm mb-3">Master English typing with 40+ WPM speed. Perfect for government job requirements.</p>
+                                        
+                                        <!-- Skill Level Indicator -->
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-secondary font-medium">Beginner</span>
+                                            </div>
+                                            <div class="skill-indicator skill-beginner">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                3 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                150+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-primary text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Touch typing fundamentals</li>
+                                        <li>• Speed building exercises</li>
+                                        <li>• Accuracy improvement techniques</li>
+                                        <li>• Government exam preparation</li>
+                                        <li>• Practice tests & assessments</li>
+                                        <li>• Certificate upon completion</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="english-typing">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-primary hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 2 -->
+                        <div class="flip-card course-card" data-category="typing" data-duration="2.5" data-fee="4500" data-skill="beginner">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://images.pixabay.com/photos/2016/11/29/06/15/hindi-1867751_960_720.jpg" alt="Hindi Typing Course" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-secondary-100 text-secondary-700 px-3 py-1 rounded-full text-sm font-medium">Trending</span>
+                                            <span class="text-accent font-bold text-lg">₹ 600 Month</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">Hindi Typing Course</h3>
+                                        <p class="text-text-secondary text-sm mb-3">Learn Hindi typing with Mangal font. Essential for state government positions.</p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-secondary font-medium">Beginner</span>
+                                            </div>
+                                            <div class="skill-indicator skill-beginner">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                3 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                120+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-secondary text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Devanagari script mastery</li>
+                                        <li>• Mangal font proficiency</li>
+                                        <li>• Speed & accuracy training</li>
+                                        <li>• State exam preparation</li>
+                                        <li>• Regular practice sessions</li>
+                                        <li>• Performance tracking</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="hindi-typing">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-secondary hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 3 -->
+                        <div class="flip-card course-card" data-category="ssc" data-duration="6" data-fee="12000" data-skill="intermediate">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="SSC Complete Package" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-accent-100 text-accent-700 px-3 py-1 rounded-full text-sm font-medium">Complete</span>
+                                            <span class="text-accent font-bold text-lg">₹1000 Month</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">ShortHand English</h3>
+                                        <p class="text-text-secondary text-sm mb-3">Speed = 80WPS to 100WPS</p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-accent font-medium">Intermediate</span>
+                                            </div>
+                                            <div class="skill-indicator skill-intermediate">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                12 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                200+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-accent text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Complete SSC syllabus coverage</li>
+                                        <li>• Typing speed enhancement</li>
+                                        <li>• Reasoning & aptitude</li>
+                                        <li>• Mock tests & practice</li>
+                                        <li>• Expert faculty guidance</li>
+                                        <li>• Job placement assistance</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="ssc-complete">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-accent hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 4 -->
+                        <div class="flip-card course-card" data-category="banking" data-duration="4" data-fee="8500" data-skill="intermediate">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCvAMAuoaW46-OkwiyPIb1GZCUOiF0zgEH-Q&s" alt="Banking Exam Preparation" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium">Best Seller</span>
+                                            <span class="text-accent font-bold text-lg">₹1000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">ShortHand Hindi </h3>
+                                        <p class="text-text-secondary text-sm mb-3">Speed = 80WPS to 100WPS</p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-accent font-medium">Intermediate</span>
+                                            </div>
+                                            <div class="skill-indicator skill-intermediate">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                10-12 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                180+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-primary text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Banking awareness training</li>
+                                        <li>• Quantitative aptitude</li>
+                                        <li>• English & reasoning</li>
+                                        <li>• Computer knowledge</li>
+                                        <li>• Interview preparation</li>
+                                        <li>• Current affairs updates</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="banking-exam">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-primary hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 5 -->
+                        <div class="flip-card course-card" data-category="railway" data-duration="3" data-fee="6500" data-skill="beginner">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuB5LUNdy_lDALFMl_EzFF4Ps2E_I1eotzOXuR1o4ghZWieATLdO3PD_mSxgf3NVAetVA&usqp=CAU" alt="Railway Jobs Preparation" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-secondary-100 text-secondary-700 px-3 py-1 rounded-full text-sm font-medium">New</span>
+                                            <span class="text-accent font-bold text-lg">₹5000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">Computer Basic Course</h3>
+                                        <p class="text-text-secondary text-sm mb-3"></p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-secondary font-medium">Beginner</span>
+                                            </div>
+                                            <div class="skill-indicator skill-beginner">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                3 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                95+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-secondary text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Railway exam patterns</li>
+                                        <li>• Technical knowledge</li>
+                                        <li>• General awareness</li>
+                                        <li>• Mathematics & reasoning</li>
+                                        <li>• Physical efficiency tips</li>
+                                        <li>• Group discussion training</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="railway-jobs">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-secondary hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 6 -->
+                        <div class="flip-card course-card" data-category="upsc" data-duration="12" data-fee="25000" data-skill="advanced">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://img.freepik.com/free-vector/app-development-banner_33099-1720.jpg" alt="UPSC Civil Services" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">Premium</span>
+                                            <span class="text-accent font-bold text-lg">₹5,000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">APP Development</h3>
+                                        <p class="text-text-secondary text-sm mb-3"></p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-red-600 font-medium">Advanced</span>
+                                            </div>
+                                            <div class="skill-indicator skill-advanced">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                6-12 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                50+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-red-600 text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Complete UPSC syllabus</li>
+                                        <li>• Essay writing mastery</li>
+                                        <li>• Current affairs analysis</li>
+                                        <li>• Interview preparation</li>
+                                        <li>• Personality development</li>
+                                        <li>• One-on-one mentoring</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="upsc-civil">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-red-600 hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 7 -->
+                        <div class="flip-card course-card" data-category="state" data-duration="4" data-fee="7500" data-skill="intermediate">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="data:image/jpeg;base64,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" alt="State Government Exams" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-accent-100 text-accent-700 px-3 py-1 rounded-full text-sm font-medium">Regional</span>
+                                            <span class="text-accent font-bold text-lg">₹5000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">WEB Development + Backend</h3>
+                                        <p class="text-text-secondary text-sm mb-3"></p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-accent font-medium">Intermediate</span>
+                                            </div>
+                                            <div class="skill-indicator skill-intermediate">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                6-12 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                110+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-accent text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• State-specific syllabus</li>
+                                        <li>• Regional language support</li>
+                                        <li>• Local current affairs</li>
+                                        <li>• State history & geography</li>
+                                        <li>• Mock tests & practice</li>
+                                        <li>• Expert local faculty</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="state-govt">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-accent hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 8 -->
+                        <div class="flip-card course-card" data-category="typing" data-duration="1.5" data-fee="3500" data-skill="beginner">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="data:image/jpeg;base64,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" alt="Speed Typing Mastery" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm font-medium">Quick</span>
+                                            <span class="text-accent font-bold text-lg">₹5000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">WEB FRONTAND</h3>
+                                        <p class="text-text-secondary text-sm mb-3"></p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-secondary font-medium">Beginner</span>
+                                            </div>
+                                            <div class="skill-indicator skill-beginner">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                6-12 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                80+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-primary text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Intensive speed training</li>
+                                        <li>• Accuracy improvement</li>
+                                        <li>• Finger positioning</li>
+                                        <li>• Daily practice sessions</li>
+                                        <li>• Progress tracking</li>
+                                        <li>• Speed certification</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="speed-typing">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-primary hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 9 -->
+                        <div class="flip-card course-card" data-category="banking" data-duration="5" data-fee="9500" data-skill="advanced">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card p-0 overflow-hidden">
+                                    <div class="h-48 overflow-hidden">
+                                        <img src="https://t3.ftcdn.net/jpg/02/97/54/36/360_F_297543660_rqDIiLvIoWQ1LYnDEpdFSX2UMxvbrhRY.jpg" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">Elite</span>
+                                            <span class="text-accent font-bold text-lg">₹5000</span>
+                                        </div>
+                                        <h3 class="text-xl font-semibold mb-2">D.T.P</h3>
+                                        <p class="text-text-secondary text-sm mb-3"></p>
+                                        
+                                        <div class="mb-3">
+                                            <div class="flex items-center justify-between text-sm mb-1">
+                                                <span class="text-text-secondary">Skill Level</span>
+                                                <span class="text-red-600 font-medium">Advanced</span>
+                                            </div>
+                                            <div class="skill-indicator skill-advanced">
+                                                <div class="skill-fill"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center justify-between text-sm text-text-secondary">
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/>
+                                                </svg>
+                                                3 Months
+                                            </div>
+                                            <div class="flex items-center">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                                                </svg>
+                                                65+ Students
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back bg-red-600 text-white p-6 flex flex-col justify-center">
+                                    <h3 class="text-xl font-semibold mb-4">Course Highlights</h3>
+                                    <ul class="text-sm space-y-2 mb-6">
+                                        <li>• Advanced banking concepts</li>
+                                        <li>• Leadership & management</li>
+                                        <li>• Group discussion training</li>
+                                        <li>• Personal interview prep</li>
+                                        <li>• Case study analysis</li>
+                                        <li>• Personality development</li>
+                                    </ul>
+                                    <div class="space-y-2">
+                                        <button class="compare-btn btn bg-white/20 text-white border border-white/30 hover:bg-white/30 w-full text-sm" data-course="bank-po">
+                                            Add to Compare
+                                        </button>
+                                        <a href="course_details.html" class="btn bg-white text-red-600 hover:bg-gray-100 w-full text-sm">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center mt-12">
+                        <button id="load-more-btn" class="btn btn-outline px-8 py-3">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            Load More Courses
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Comparison Bar -->
+    <div id="comparison-bar" class="comparison-bar fixed bottom-0 left-0 right-0 bg-surface shadow-lg border-t border-border z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <span class="font-medium">Compare Courses:</span>
+                    <div id="comparison-items" class="flex space-x-2">
+                        <!-- Comparison items will be added here dynamically -->
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="compare-btn" class="btn btn-primary" disabled>
+                        Compare (<span id="compare-count">0</span>/3)
+                    </button>
+                    <button id="clear-comparison" class="btn btn-outline">Clear All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 mr-2" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="#2563EB"/>
+                            <path d="M12 12h16v4H20v12h-4V16h-4v-4z" fill="white"/>
+                            <circle cx="30" cy="30" r="6" fill="#059669"/>
+                            <path d="M27 30l2 2 4-4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3 class="text-xl font-bold">SAFAL PARIKSHA</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">Excellence in typing and government exam preparation since 2009. Your success is our mission.</p>
+                    <div class="flex space-x-4">
+                        <a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="homepage.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="course_catalog.html" class="text-gray-300 hover:text-white transition-colors">Courses</a></li>
+                        <li><a href="faculty_profiles.html" class="text-gray-300 hover:text-white transition-colors">Faculty</a></li>
+                        <li><a href="admission_process.html" class="text-gray-300 hover:text-white transition-colors">Admissions</a></li>
+                        <li><a href="contact_inquiry.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="course_details.html" class="text-gray-300 hover:text-white transition-colors">English Typing</a></li>
+                        <li><a href="course_details.html" class="text-gray-300 hover:text-white transition-colors">Hindi Typing</a></li>
+                        <li><a href="course_details.html" class="text-gray-300 hover:text-white transition-colors">SSC Preparation</a></li>
+                        <li><a href="course_details.html" class="text-gray-300 hover:text-white transition-colors">Banking Exams</a></li>
+                        <li><a href="course_details.html" class="text-gray-300 hover:text-white transition-colors">Railway Jobs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 mr-2 mt-1 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
+                            </svg>
+                            <p class="text-gray-300">Shop No. 8, Adarsh Complex, Sangam Vihar Rd, near AXIS BANK ATM, Wazirabad, New Delhi, Delhi, 110084</p>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                            </svg>
+                            <p class="text-gray-300">+91 9990426102</p>
+                        </div>
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                            </svg>
+                            <p class="text-gray-300">info@SAFALPARIKSHA.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">© 2025 SAFAL PARIKSHA. All Rights Reserved. | Designed with ❤️ for Student Success</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Mobile Filter Toggle
+        const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+        const closeFilterBtn = document.getElementById('close-filter-btn');
+        const mobileFilterSidebar = document.getElementById('mobile-filter-sidebar');
+        const applyFiltersBtn = document.getElementById('apply-filters-btn');
+
+        mobileFilterBtn.addEventListener('click', () => {
+            mobileFilterSidebar.classList.add('open');
+        });
+
+        closeFilterBtn.addEventListener('click', () => {
+            mobileFilterSidebar.classList.remove('open');
+        });
+
+        applyFiltersBtn.addEventListener('click', () => {
+            mobileFilterSidebar.classList.remove('open');
+            // Apply filters logic here
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('search-input');
+        const searchDropdown = document.getElementById('search-dropdown');
+
+        searchInput.addEventListener('focus', () => {
+            searchDropdown.classList.add('show');
+        });
+
+        searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                searchDropdown.classList.remove('show');
+            }, 200);
+        });
+
+        // Sort Dropdown
+        const sortBtn = document.getElementById('sort-btn');
+        const sortDropdown = document.getElementById('sort-dropdown');
+
+        sortBtn.addEventListener('click', () => {
+            sortDropdown.classList.toggle('hidden');
+        });
+
+        // Close sort dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sortBtn.contains(e.target) && !sortDropdown.contains(e.target)) {
+                sortDropdown.classList.add('hidden');
+            }
+        });
+
+        // Filter Chips
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const courseCards = document.querySelectorAll('.course-card');
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                // Remove active class from all chips
+                filterChips.forEach(c => c.classList.remove('active'));
+                // Add active class to clicked chip
+                chip.classList.add('active');
+                
+                const category = chip.dataset.category;
+                filterCourses(category);
+            });
+        });
+
+        function filterCourses(category) {
+            courseCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            updateResultsCount();
+        }
+
+        function updateResultsCount() {
+            const visibleCards = document.querySelectorAll('.course-card[style="display: block"], .course-card:not([style*="display: none"])');
+            document.getElementById('results-count').textContent = visibleCards.length;
+        }
+
+        // Course Comparison
+        let comparisonList = [];
+        const maxComparisons = 3;
+        const compareButtons = document.querySelectorAll('.compare-btn');
+        const comparisonBar = document.getElementById('comparison-bar');
+        const comparisonItems = document.getElementById('comparison-items');
+        const compareCount = document.getElementById('compare-count');
+        const compareBtn = document.getElementById('compare-btn');
+        const clearComparisonBtn = document.getElementById('clear-comparison');
+
+        compareButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const courseId = btn.dataset.course;
+                const courseName = btn.closest('.flip-card').querySelector('h3').textContent;
+                
+                if (comparisonList.includes(courseId)) {
+                    removeFromComparison(courseId);
+                } else if (comparisonList.length < maxComparisons) {
+                    addToComparison(courseId, courseName);
+                }
+            });
+        });
+
+        function addToComparison(courseId, courseName) {
+            comparisonList.push(courseId);
+            updateComparisonUI();
+            
+            // Update button text
+            const btn = document.querySelector(`[data-course="${courseId}"]`);
+            btn.textContent = 'Remove from Compare';
+            btn.classList.add('bg-red-500', 'hover:bg-red-600');
+            btn.classList.remove('bg-white/20', 'hover:bg-white/30');
+        }
+
+        function removeFromComparison(courseId) {
+            comparisonList = comparisonList.filter(id => id !== courseId);
+            updateComparisonUI();
+            
+            // Update button text
+            const btn = document.querySelector(`[data-course="${courseId}"]`);
+            btn.textContent = 'Add to Compare';
+            btn.classList.remove('bg-red-500', 'hover:bg-red-600');
+            btn.classList.add('bg-white/20', 'hover:bg-white/30');
+        }
+
+        function updateComparisonUI() {
+            compareCount.textContent = comparisonList.length;
+            
+            if (comparisonList.length > 0) {
+                comparisonBar.classList.add('show');
+                compareBtn.disabled = comparisonList.length < 2;
+            } else {
+                comparisonBar.classList.remove('show');
+                compareBtn.disabled = true;
+            }
+
+            // Update comparison items display
+            comparisonItems.innerHTML = comparisonList.map(courseId => {
+                const courseName = document.querySelector(`[data-course="${courseId}"]`).closest('.flip-card').querySelector('h3').textContent;
+                return `<span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm">${courseName}</span>`;
+            }).join('');
+        }
+
+        clearComparisonBtn.addEventListener('click', () => {
+            comparisonList.forEach(courseId => {
+                const btn = document.querySelector(`[data-course="${courseId}"]`);
+                btn.textContent = 'Add to Compare';
+                btn.classList.remove('bg-red-500', 'hover:bg-red-600');
+                btn.classList.add('bg-white/20', 'hover:bg-white/30');
+            });
+            comparisonList = [];
+            updateComparisonUI();
+        });
+
+        compareBtn.addEventListener('click', () => {
+            // Redirect to comparison page or show comparison modal
+            alert('Comparison feature would redirect to detailed comparison page');
+        });
+
+        // Load More Functionality
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        loadMoreBtn.addEventListener('click', () => {
+            // Simulate loading more courses
+            loadMoreBtn.innerHTML = '<svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Loading...';
+            
+            setTimeout(() => {
+                loadMoreBtn.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>Load More Courses';
+            }, 2000);
+        });
+
+        // Initialize page
+        updateResultsCount();
+
+        // Add CSS for filter chips
+        const style = document.createElement('style');
+        style.textContent = `
+            .filter-chip {
+                @apply px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap;
+                @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+            }
+            .filter-chip.active {
+                @apply bg-primary text-white;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
