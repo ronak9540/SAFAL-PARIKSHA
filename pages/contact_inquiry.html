@@ -250,12 +250,13 @@
                 Have questions about our courses? Ready to start your journey? Contact us through any of the convenient methods below.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="tel:+919990426102" class="btn bg-accent text-white hover:bg-accent-600 px-8 py-3 text-lg">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                    </svg>
-                    Call Now
-                </a>
+                <a href="tel:+919990426102" 
+   class="btn bg-accent text-white hover:bg-accent-600 px-8 py-3 text-lg flex items-center">
+    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+    </svg>
+    Call Now
+</a>
                 <a href="#inquiry-form" class="btn bg-white/20 text-white border border-white/30 hover:bg-white/30 px-8 py-3 text-lg">Send Inquiry</a>
             </div>
         </div>
@@ -332,20 +333,40 @@
 
     <!-- Map and Inquiry Form Section -->
     <section class="py-16 bg-surface">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <!-- Interactive Map -->
-                <div class="order-2 lg:order-1">
-                    <h3 class="text-2xl font-bold mb-6">Find Us on Map</h3>
-                    <div class="map-container h-96 bg-gray-200 relative">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.674665!2d77.209021!3d28.613939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1642678901234!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-xl">
-                        </iframe>
-                        <div class="absolute top-4 right-4 bg-white rounded-lg p-2 shadow-lg">
-                            <a href="https://maps.google.com" target="_blank" class="text-primary hover:text-primary-700 text-sm font-medium">
-                                Open in Google Maps
-                            </a>
-                        </div>
-                    </div>
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Interactive Map -->
+      <div class="order-2 lg:order-1">
+        <h3 class="text-2xl font-bold mb-6">Find Us on Map</h3>
+        <div class="map-container h-96 bg-gray-200 relative">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.674665!2d77.209021!3d28.613939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfff9dc694af3%3A0x8a4c1eccdccddfa7!2sSAFAL%20PARIKSHA%20-%20TYPING%20%26%20SHORTHAND%20CLASSES!5e0!3m2!1sen!2sin!4v1723890674000!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            class="rounded-xl">
+          </iframe>
+          <div class="absolute top-4 right-4 bg-white rounded-lg p-2 shadow-lg">
+            <button onclick="openGoogleMaps()" 
+              class="text-primary hover:text-primary-700 text-sm font-medium">
+              Open in Google Maps
+            </button>
+          </div>
+        </div>
+   
+
+
+<script>
+  function openGoogleMaps() {
+    window.open(
+      "https://www.google.com/maps/place/SAFAL+PARIKSHA+-TYPING+%26+SHORTHAND+CLASSES+(ALL+ACADEMIC+CLASSES+FOR+ALL+STREAM)+COMPUTER+COURSES/@28.726008,77.2162083,17z/data=!3m1!4b1!4m6!3m5!1s0x390cfff9dc694af3:0x8a4c1eccdccddfa7!8m2!3d28.726008!4d77.2187832!16s%2Fg%2F11vrr7mtsl?entry=ttu",
+      "_blank"
+    );
+  }
+</script>
                     
                     <!-- Nearby Landmarks -->
                     <div class="mt-6 bg-primary-50 rounded-lg p-4">
@@ -355,20 +376,15 @@
                                 <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
                                 </svg>
-                                Metro Station - 200m (Rajiv Chowk)
+                                Metro Station - GTB Nagar
                             </li>
                             <li class="flex items-center">
                                 <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
                                 </svg>
-                                Bus Stop - 50m (Connaught Place)
+                                Bus Stop - Gandhi vihar
                             </li>
-                            <li class="flex items-center">
-                                <svg class="w-4 h-4 text-primary mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
-                                </svg>
-                                Parking Available - Ground Floor
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
